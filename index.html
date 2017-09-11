@@ -4,12 +4,7 @@
 <meta charset="utf-8">
 	<title>Hola mundo</title>
 	<script src="pixi.js"></script>
-	<style>
-		*{
-			padding: 0;
-			margin: 0;
-		}
-	</style>
+
 </head>
 
 <body>
@@ -17,36 +12,39 @@
 
 	<script type="text/javascript">
 
+// Se crea el contenedor...
+		var stage = new PIXI.Container();
+
 	// se crea el canvas
 		var renderer = PIXI.autoDetectRenderer(256, 256);
 
 	//Hacemos visible el canvas, osea el renderer
 		document.body.appendChild(renderer.view);
 
-				//se modifica o se personaliza el renderer con etiquetas de css, en este caso el border
-		renderer.view.style.border = "4px solid red"
-
 		// cambiar el color del container
 		renderer.backgroundColor = 0x00ffff;
 
-		//cambiando el tamaño.
-		
-		/*renderer.autoResize = true;
-		renderer.resize(512,512);*/
-
-		// que ocupe toda la pantalla
-		renderer.view.style.position = "absolute";
-		renderer.view.style.display = "block";
-		renderer.autoResize = true;
-		renderer.resize(window.innerWidth, window.innerHeight);
-
-
-
-	// Se crea el contenedor...
-		var stage = new PIXI.Container();
-
 	//Represente todo lo que esta dendro del container.
-		renderer.render(stage);
+		//renderer.render(stage);
+
+		/*
+		var texture = PIXI.utils,TextureCache[image/cat.png];
+		var casco = new PIXI.Sprite(texture); */
+
+	// el cargador carga la imagen y llama una funcion para que opere con ella y luego la convierta a textura 
+		PIXI.loader
+				.add("images/cat.png")
+				.load(setup);
+
+			function setup(){
+				//var texture = PIXI.loader.resources["image/cat.png"].texture;
+				var casco = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+
+				// tenemos que añadirlo
+
+				stage.addChild(casco);
+				renderer.render(stage);
+			}
 
 	</script>
 </body>
