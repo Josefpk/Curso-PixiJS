@@ -1,8 +1,7 @@
 var create_rectangle = function(x,y,stage){
 	var rectangle = new PIXI.Graphics();
-	rectangle.lineStyle(4, 0xFF3300, 1);
-	rectangle.beginFill(0x66CCFF);
-	rectangle.drawRect(0, 0, 64, 64);
+	rectangle.beginFill(11111111);
+	rectangle.drawRect(0, 0, 100, 800);
 	rectangle.endFill();
 	rectangle.x = x;
 	rectangle.y = y;
@@ -13,8 +12,7 @@ var create_rectangle = function(x,y,stage){
 
 var create_circle = function(x,y,stage){
 	var circle = new PIXI.Graphics();
-	circle.lineStyle(4, 0xFF3300, 1);
-	circle.beginFill(0x9966FF);
+	circle.beginFill(11112233);
 	circle.drawCircle(0, 0, 32);
 	circle.endFill();
 	circle.x = x;

@@ -23,7 +23,7 @@
 
 		//var cat = createcat(50 , 50, stage);		
 		var circle = create_circle(50 , 50, stage)
-		var rect = create_rectangle(500, 500, stage)
+		var rect = create_rectangle(700, 0, stage)
 
 		requestAnimationFrame( animate );
 
@@ -34,25 +34,14 @@
 		    // render the stage
 		    renderer.render(stage);
 		}
-
-		function re_set(obj, x, y){
-			var x_diff = Math.abs(obj.x - x);
-			var y_diff = Math.abs(obj.y - y);
-			var tiime = x_diff > y_diff ? x_diff : y_diff;
-			
-			var interval = setInterval(function(){ 
-				if(obj.x == x && obj.y == y) clearInterval(interval);
-				if(obj.x > x) obj.x -= 1;
-				if(obj.y > y) obj.y -= 1; 
-			}, 500);
-		}
 		
 		function play(one, two) {
 		  //check for a collision between the cat and the box
 		  if (hitTestRectangle(one, two)) {
 
 		    //one.interactive = false;
-		    re_set(one, 50, 50);
+		    one.position.set(50,50);
+		    
 		    interval = setInterval(animate, 40);
 		    two.tint = 0xff3300;
 
