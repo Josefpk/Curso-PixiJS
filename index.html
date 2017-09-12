@@ -3,68 +3,61 @@
 <head>
 <meta charset="utf-8">
 	<title>Hola mundo</title>
-	<script src="pixi.js"></script>
-
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.5/pixi.js"></script> -->
+	<script src="./public/js/pixi.js"></script>
+	<script src="./public/js/tink.js"></script>
+	<script src="./public/js/functions.js"></script>
 </head>
 
 <body>
 
-
 	<script type="text/javascript">
-
-//ALIAS, es otro nombre que conocemos otro contenido
-
- 	var Container = PIXI.Container;
- 	var autoDetectRenderer = PIXI.autoDetectRenderer;
- 	var loader = PIXI.loader;
- 	var resources =PIXI.loader.resources;
- 	var Sprite = PIXI.Sprite;
-
-// Se crea el contenedor...
-		var stage = new Container();
-
-	// se crea el canvas
-		var renderer = autoDetectRenderer(256, 256);
-
-	//Hacemos visible el canvas, osea el renderer
+		var renderer = PIXI.autoDetectRenderer(800, 600);
 		document.body.appendChild(renderer.view);
 
-		// cambiar el color del container
-		renderer.backgroundColor = 0x00ffff;
+		// create the root of the scene graph
+		var stage = new PIXI.Container();
 
-	
-		loader
-				.add("images/cat.png")
-				.load(setup);
+		// create a texture from an image path
+		var texture = PIXI.Texture.fromImage('/public/images/cat.png');
 
+		//var cat = createcat(50 , 50, stage);		
+		var circle = create_circle(50 , 50, stage)
+		var rect = create_rectangle(500, 500, stage)
 
+		requestAnimationFrame( animate );
 
-			function setup(){
-				//var texture = PIXI.loader.resources["image/cat.png"].texture;
-				var casco = new Sprite(resources["images/cat.png"].texture);
-				/*POSICIONAR SPRITE primera manera
-				casco.x = 96;
-				casco.y = 96; */
-				/*POSICIONAR SPRITE segunda manera*/
-				casco.position.set(96, 96);
+		function animate() {
+				play(circle, rect);
+		    requestAnimationFrame(animate);
 
-				/*AGRANDAR CASCO O IMAGEN primera manera
-				casco.width = 96;
-				casco.height = 96; */
+		    // render the stage
+		    renderer.render(stage);
+		}
 
-				/*AGRANDAR CASCO O IMAGEN segunda manera segun escala, doble, mitad, etc*/
-				casco.scale.x = 0.3;
-				casco.scale.y = 0.3;
+		function re_set(obj, x, y){
+			var x_diff = Math.abs(obj.x - x);
+			var y_diff = Math.abs(obj.y - y);
+			var tiime = x_diff > y_diff ? x_diff : y_diff;
+			
+			var interval = setInterval(function(){ 
+				if(obj.x == x && obj.y == y) clearInterval(interval);
+				if(obj.x > x) obj.x -= 1;
+				if(obj.y > y) obj.y -= 1; 
+			}, 500);
+		}
+		
+		function play(one, two) {
+		  //check for a collision between the cat and the box
+		  if (hitTestRectangle(one, two)) {
 
-				/*AGRANDAR CASCO O IMAGEN TERCERA manera segun escala, doble, mitad, etc*/
-				casco.scale.set(2,2);
+		    //one.interactive = false;
+		    re_set(one, 50, 50);
+		    interval = setInterval(animate, 40);
+		    two.tint = 0xff3300;
 
-				// tenemos que añadirlo
-
-				stage.addChild(casco);
-				renderer.render(stage);
-			}
-
+		  }
+		}
 	</script>
 </body>
 </html>
