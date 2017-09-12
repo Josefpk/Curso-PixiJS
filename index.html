@@ -12,11 +12,19 @@
 
 	<script type="text/javascript">
 
+//ALIAS, es otro nombre que conocemos otro contenido
+
+ 	var Container = PIXI.Container;
+ 	var autoDetectRenderer = PIXI.autoDetectRenderer;
+ 	var loader = PIXI.loader;
+ 	var resources =PIXI.loader.resources;
+ 	var Sprite = PIXI.Sprite;
+
 // Se crea el contenedor...
-		var stage = new PIXI.Container();
+		var stage = new Container();
 
 	// se crea el canvas
-		var renderer = PIXI.autoDetectRenderer(256, 256);
+		var renderer = autoDetectRenderer(256, 256);
 
 	//Hacemos visible el canvas, osea el renderer
 		document.body.appendChild(renderer.view);
@@ -24,21 +32,32 @@
 		// cambiar el color del container
 		renderer.backgroundColor = 0x00ffff;
 
-	//Represente todo lo que esta dendro del container.
-		//renderer.render(stage);
-
-		/*
-		var texture = PIXI.utils,TextureCache[image/cat.png];
-		var casco = new PIXI.Sprite(texture); */
-
-	// el cargador carga la imagen y llama una funcion para que opere con ella y luego la convierta a textura 
-		PIXI.loader
+	
+		loader
 				.add("images/cat.png")
 				.load(setup);
 
+
+
 			function setup(){
 				//var texture = PIXI.loader.resources["image/cat.png"].texture;
-				var casco = new PIXI.Sprite(PIXI.loader.resources["images/cat.png"].texture);
+				var casco = new Sprite(resources["images/cat.png"].texture);
+				/*POSICIONAR SPRITE primera manera
+				casco.x = 96;
+				casco.y = 96; */
+				/*POSICIONAR SPRITE segunda manera*/
+				casco.position.set(96, 96);
+
+				/*AGRANDAR CASCO O IMAGEN primera manera
+				casco.width = 96;
+				casco.height = 96; */
+
+				/*AGRANDAR CASCO O IMAGEN segunda manera segun escala, doble, mitad, etc*/
+				casco.scale.x = 0.3;
+				casco.scale.y = 0.3;
+
+				/*AGRANDAR CASCO O IMAGEN TERCERA manera segun escala, doble, mitad, etc*/
+				casco.scale.set(2,2);
 
 				// tenemos que añadirlo
 
